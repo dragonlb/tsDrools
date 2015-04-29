@@ -1,0 +1,20 @@
+package com.sample
+ 
+import com.sample.hello.DroolsTest.Message;
+ 
+rule "Hello World2"
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println( myMessage );
+        m.setMessage( "Goodbye cruel world2" );
+        m.setStatus( Message.GOODBYE );
+        update( m );
+end
+
+rule "GoodBye2"
+    when
+        Message( status == Message.GOODBYE, myMessage : message )
+    then
+        System.out.println( myMessage );
+end

@@ -1,0 +1,77 @@
+package com.sample.hello;
+
+
+import org.kie.api.KieServices;
+import org.kie.api.event.rule.DebugAgendaEventListener;
+import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
+/**
+ * This is a sample class to launch a rule.
+ */
+public class DroolsTest {
+
+    public static final void main(String[] args) {
+        try {
+            // load up the knowledge base
+//	        KieServices ks = KieServices.Factory.get();
+//	        KieFileSystem kfs = ks.newKieFileSystem();
+//	        kfs.write("drl", ks.getResources().newInputStreamResource(new FileInputStream("target/rules/Sample.drl")).setResourceType(ResourceType.JAVA));
+//	        KieBuilder kb = ks. newKieBuilder(kfs) ;
+//	        kb. buildAll() ;
+//        	if (kb. getResults() . hasMessages(Level.ERROR) ) {
+//        		throw new RuntimeException("Build Errors:\n" + kb. getResults() . toString() ) ;
+//    		}
+//	        KieContainer kContainer = ks.newKieContainer(ks.getRepository().getDefaultReleaseId() ) ;
+//        	KieSession kSession = kContainer.newKieSession();
+
+        	
+	        KieServices ks = KieServices.Factory.get();
+    	    KieContainer kContainer = ks.getKieClasspathContainer();
+        	KieSession kSession = kContainer.newKieSession("HelloWorldKS");
+        	
+        	kSession. addEventListener( new DebugAgendaEventListener() ) ;
+        	kSession. addEventListener( new DebugRuleRuntimeEventListener() ) ;
+        	
+            // go !
+            Message message = new Message();
+            message.setMessage("Hello World2");
+            message.setStatus(Message.HELLO);
+            kSession.insert(message);
+            kSession.fireAllRules();
+            kSession.dispose();
+            System.out.println("...");
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    public static class Message {
+
+        public static final int HELLO = 0;
+        public static final int GOODBYE = 1;
+
+        private String message;
+
+        private int status;
+
+        public String getMessage() {
+            return this.message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public int getStatus() {
+            return this.status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+    }
+
+}

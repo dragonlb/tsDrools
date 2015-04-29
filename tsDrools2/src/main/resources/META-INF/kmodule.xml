@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="rules" packages="rules">
+        <ksession name="ksession-rules"/>
+    </kbase>
+    <kbase name="dtables" packages="dtables">
+        <ksession name="ksession-dtables"/>
+    </kbase>
+    <kbase name="process" packages="process">
+        <ksession name="ksession-process"/>
+    </kbase>
+    <kbase name="kBase" packages="rules2">
+        <ksession name="HelloWorldKS"/>
+    </kbase>
+    <kbase name="kbase1" packages="namedkiesession">
+        <ksession name="ksession_1"/>
+    </kbase>
+</kmodule>
